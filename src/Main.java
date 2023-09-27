@@ -18,22 +18,41 @@ public class Main {
         if (in != null) {
             n = in.nextInt();
         }
+        n += 2;
         int m = 0;
         if (in != null) {
             m = in.nextInt();
         }
+        m += 2;
         int[][] matrix = new int[n][m];
         int c = 0;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < m - 1; j++) {
                 matrix[i][j] = in.nextInt();
             }
         }
 
+        int matrixMax = 0;
         for (int i = 1; i < n - 1; i++) {
             for (int j = 1; j < m - 1; j++) {
-                if (matrix[i][j] < matrix[i - 1][j] && matrix[i][j] < matrix[i + 1][j] && matrix[i][j] < matrix[i][j + 1] && matrix[i][j] < matrix[i][j - 1]) {
+                if (matrix[i][j] > matrixMax)
+                    matrixMax = matrix[i][j];
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+            matrix[0][i] = matrixMax;
+        for (int i = 0; i < n; i++)
+            matrix[n - 1][i] = matrixMax;
+        for (int i = 0; i < n; i++)
+            matrix[i][m - 1] = matrixMax;
+        for (int i = 0; i < n; i++)
+            matrix[i][0] = matrixMax;
+
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < m - 1; j++) {
+                if (matrix[i][j] < matrix[i - 1][j] && matrix[i][j] < matrix[i + 1][j] && matrix[i][j] < matrix[i][j + 1] && matrix[i][j] < matrix[i][j - 1] && matrix[i][j] < matrix[i + 1][j + 1] && matrix[i][j] < matrix[i - 1][j - 1] && matrix[i][j] < matrix[i - 1][j + 1] && matrix[i][j] < matrix[i + 1][j - 1]) {
                     c++;
                 }
             }
